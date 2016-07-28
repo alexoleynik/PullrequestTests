@@ -1,0 +1,19 @@
+cd TranslatorQAA/Data
+tar czf ~/translator-test-models-yyyy.MM.dd.tgz Models
+ 
+e.g. tar czf ~/translator-test-models-2014.07.09.tgz Models
+ 
+In a browser (Firefox seems to work well), navigate to https://externalartifactory.dev.onshape.com/artifactory/
+Log in with the credentials in gradle.properties:
+externalRepoUsername=gradle
+externalRepoPassword=p0lyMorph!c
+ 
+Click on the Deploy tab.
+Click the Choose File button.
+Select the .tgz file just created.
+Click the Upload! button
+Replace the text in the GroupId field with com.amc
+Press the tab key
+The other fields should default to the correct values.
+Click the Deploy Artifact button
+

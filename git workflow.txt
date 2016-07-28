@@ -1,0 +1,80 @@
+=====================================================
+=== Configuring git repository on the dev-machine ===
+=====================================================
+1. Create folder where you want to have the repository (e.g. OnshapeGit)
+2. Go to this folder: cd OnshapeGit
+3. Init some required for further commits git settings:
+   git config --global user.name "GIT_ACCOUNT_NAME"         - configures username
+   git config --global user.email username@amcbridge.com.ua - configures e-mail
+   git config --global core.editor "gedit -w -s"            - sets text editor for writing commit messages
+4. Clone the repository from GitHub: git clone https://YOUR_GITHUB_USERNAME@github.com/belmont-tech-inc/translators.git
+5. Go to the 'OnshapeGit/translators' sub-folder: cd translators
+6. If you already have your 'username-master' branch - switch to this branch: git checkout username-master
+   To create your own branch(after that you can switch to it by 'checkout' command from above): git branch username-master
+7. Copy content of the OnshapeGit with active 'username-master' branch to some another folder (e.g.OnshapeGitCopy_username_master) 
+   and work only with these copied sources from your IDE in the future.
+
+=================================================
+=== Development and "commit to git" work-flow ===
+=================================================
+Onshape team always works on a branch. They have some scripts that help with the merge process with shell function wrappers around them.
+These functions are defined when you source buildenv.bash.
+On our side we will be working with local copy of each own "username-master" branch so the full working chain will be similar to something following:
+
+...starting on master...
+
+. buildenv.bash
+
+git checkout username-master
+
+...do some work / merge updates from / to our local copy of username-master branch...
+
+git commit
+pullmerge master
+
+git checkout master
+mergepush username-master ( mergepush aoleynik-master )
+
+git checkout username-master ( git checkout aoleynik-master )
+
+...do some more work...
+
+---
+
+pullmerge master - gets the latest changes from the remote master and merges them into the current branch.
+
+git checkout master 
+mergepush username-master - merges changes from  username-master into the current branch (master) and pushes them to the remote.
+
+============================================
+=== Work with Gradle - build and testing ===
+============================================
+1. Go to the folder with sources (OnshapeGitCopy_username_master/translators/)
+2. Set required environment variables (it must be done after each machine restart):
+   export EXTERNAL_REPO=1
+3. Run buildenv.bash script: . buildenv.bash
+   It can show you some warnings regarding GCC/GPP environment variables but it shouldn't affect the correct work of compiler
+   since it must be integrated into the CentOS by the moment (GCC 4.7.2)
+3. Use gradle command to execute any required task:
+   gradle makeTranslator - builds DEBUG and RELEASE configurations
+   gradle makeTranslatorRelease - builds just release configuration
+   gradle makeTranslatorDebug - builds just debug configuration
+   gradle testTranslator - builds debug and release configurations and run our tests
+   
+===========================
+=== Work with git hints ===
+===========================
+git pull - receives updates from the server
+git status - shows where you are located (which branch) and what files were changed
+git add <file> - to update what will be committed
+git add -A - marks all modified / added files to be committed after the 'git commit' command
+git commit -m "Commit message" - commit changes
+git push origin - отправить закомиченные в текущем бренче изменения на сервер
+git branch some_branch - создать новый бранч
+git checkout some_branch - переключится на другую ветку (бранч)
+
+Many other hints and common git commands you can find at:
+http://eax.me/git-commands/
+
+Шпаргалка по работе с Vim
+http://eax.me/vim-commands/
