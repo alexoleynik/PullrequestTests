@@ -1,8 +1,12 @@
-ÿþ
  Hi Alex
+<<<<<<< HEAD
+
+I am testing pull request
+=======
 hihi
 hoho
 <<<<<<< HEAD
 
 =======
 >>>>>>> origin/master
+>>>>>>> master
